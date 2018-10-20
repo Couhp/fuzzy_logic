@@ -31,7 +31,7 @@ def detect (matrix, x, y) :
     return False
 
 # ===========================================================
-img = cv2.imread('single_black_central.png', 0)
+img = cv2.imread('temp_central.png', 0)
 
 for width in range(len(img)) :
     for height in range(len(img[width])) :
