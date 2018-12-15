@@ -42,10 +42,6 @@ class Transaction :
         start = self.find_nearest_node(start) #list(self.nodes.keys())[1920]
         end   = self.find_nearest_node(end)    #list(self.nodes.keys())[490]
         
-        print (astar.find_path(start=start, goal=end, 
-                    neighbors_fnct=neighbors,
-                    distance_between_fnct=distance,
-                    heuristic_cost_estimate_fnct=cost))
         path = list(astar.find_path(start=start, goal=end, 
                     neighbors_fnct=neighbors,
                     distance_between_fnct=distance,
@@ -99,7 +95,12 @@ class Transaction :
             elif i+RANGE-1 > len(angles) :
                 new_angles.append(self.mean(angles[i:]))
             else :
-                new_angles.append(self.mean(angles[i-RANGE:i+RANGE]))    
+                if angles[i] > 110:
+                    new_angles.append(self.mean([abs(x) for x in angles[i-RANGE:i+RANGE]]))    
+                elif angles[i] < -110:
+                    new_angles.append(self.mean([-abs(x) for x in angles[i-RANGE:i+RANGE]]))    
+                else:
+                    new_angles.append(self.mean(angles[i-RANGE:i+RANGE]))    
         return new_angles
 
 

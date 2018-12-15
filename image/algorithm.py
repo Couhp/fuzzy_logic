@@ -45,6 +45,11 @@ for i in range(len(img)) :
         if img[i][j] == 0 :
             if detect(img, i, j) :
                 img[i][j] = 255
+for i in range(len(img)) :
+    for j in range(len(img[i])) :
+        if img[i][j] == 0 :
+            if detect(img, i, j) :
+                img[i][j] = 255
 
 cv2.imwrite("single_central.png", img)
 
