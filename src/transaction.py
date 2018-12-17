@@ -56,10 +56,13 @@ class Transaction :
             angle = self.get_angle (path, i, node)    
             angles.append(angle)
         new_angles = self.soft_move(angles)
+        self.path = path
         return path, new_angles 
+
 
     def mean(self,numbers):
         return float(sum(numbers)) / max(len(numbers), 1)
+
 
     def get_angle (self, path, i, node) :
         def cal_angle (node, next_node) :
@@ -102,6 +105,17 @@ class Transaction :
                 else:
                     new_angles.append(self.mean(angles[i-RANGE:i+RANGE]))    
         return new_angles
+
+    
+    def distance (self, start, end):
+        start = self.path.index(start)
+        end = path.index(end)
+        if start > end:
+            return -1
+        else:
+            return start - end
+    
+    
 
 
 ## ==== TEST ====
