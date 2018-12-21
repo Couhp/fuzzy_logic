@@ -11,7 +11,7 @@ def lamp_green(time):
         return 1.0
     elif 3<= time and time <= 5:
         return (time-3)/3.0
-    elif 8<=time and time  <= 11:
+    elif 8<=time and time  <= 10:
         return (11-time)/4.0
     else:
         return 0

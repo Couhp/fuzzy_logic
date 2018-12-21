@@ -22,8 +22,10 @@ class UI:
         self.background = Background('image/raw_map.png', [0,0])
         self.stone = Stone("image/stone.png", [0,0])
         self.car = Car('image/car.png', [0, 0])
-        self.light = Light(['image/green.png', 'image/yellow.png', 'image/red.png'], [300,300])
+        self.light = Light(['image/green.png', 'image/yellow.png', 'image/red.png'], [0,0])
+        self.light.move_to([292, 343])
         self.light.position =  self.transaction.find_nearest_node(self.light.get_rect())
+        print ("light", self.light.position)
         self.stop_flag = False
         ## BLIT
         self.screen.blit(self.background.image, self.background.rect)
@@ -74,7 +76,7 @@ class UI:
 
 
     def speed_setup(self, speed, calc_time):
-        if speed < 1:
+        if speed < 10:
             self.stop_flag = True
             return 
         else:
@@ -97,12 +99,12 @@ class UI:
         node = self.path[0]
         angle = self.angles[0]
 
-        if not self.stop_flag:
+        if not self.stop_flag and len(self.path) > 10:
             self.car.move_to(list(node))
             self.car.rotate(angle)
-
             self.path = self.path[1:]
             self.angles = self.angles[1:]
+
         self.update_display()        
         pygame.time.delay(self.delay)
         self.light.time_pass(self.time_light)

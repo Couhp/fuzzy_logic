@@ -19,6 +19,6 @@ while True:
     start = timer.time()    
     time, light_dis, stone_dis = game.get_environment_info()
     speed = get_speed(time, light_dis, stone_dis)
-    print (speed, light_dis)
+    # print (speed, light_dis, stone_dis)
     calc_time = timer.time() - start
     game.speed_setup(speed, calc_time)

@@ -3,7 +3,7 @@ import pygame
 class Light(pygame.sprite.Sprite):
     def __init__(self, list_image_file, location):
         pygame.sprite.Sprite.__init__(self)  #call Sprite initializer
-        
+        pygame.font.init()
         self.lights = list_image_file
         ### light :
         # 0 ---> green
@@ -13,16 +13,16 @@ class Light(pygame.sprite.Sprite):
         self.image = pygame.image.load(self.lights[0]).convert_alpha()
         self.status = 0
         self.rect = self.image.get_rect(topleft=location)
+        self.center = self.rect.center
         self.time = 0
         self.round_time = 0
         self.status_list = [0 for i in range(10)] + [1 for i in range(5)] + [2 for i in range(10)]
 
-        pygame.sprite.Sprite.__init__(self) 
-        pygame.font.init() # you have to call this at the start, 
-                   # if you want to use this module.
         self.myfont = pygame.font.SysFont('Comic Sans MS', 50)
         self.text = self.myfont.render(str(self.get_time()), False, (100, 100, 0))
-        self.text_rect = [self.rect[0] + 100, self.rect[1]]
+        self.text_rect = [self.rect[0] + 20, self.rect[1]]
+        
+      
         self.position = self.rect.topleft
 
     def time_pass(self, unit):
@@ -51,9 +51,10 @@ class Light(pygame.sprite.Sprite):
         return time
 
     def get_rect(self):
-        return self.rect.topleft
-    
+        return (self.rect.topleft[0] + self.center[0], self.rect.topleft[1] + self.center[1])
     
 
+    def move_to(self, location) :
+        self.rect.topleft = [location[0] - self.center[0], location[1] - self.center[1]]
 
     

@@ -45,7 +45,7 @@ def check_rule_fuzzy_lamp(time, distance):
 
 def calc_speed_lamp(time, distance):
     rules = check_rule_fuzzy_lamp(time, distance)
-    print (rules)
+    # print (rules)
     speed = 0
     for i in range(len(rules)):
         if rules[i][0] == 'more_red':
@@ -119,9 +119,9 @@ def calc_speed_stone(distance):
         if rules[i][1] == 'slow':
             speed_avg = 0.0
         elif rules[i][1] == 'normal':
-            speed_avg = 20.0
+            speed_avg = 15.0
         elif rules[i][1] == 'fast':
-            speed_avg = 30.0
+            speed_avg = 40.0
         # print(angle_var, lamp_var, distance_var, speed_avg)
         speed.append(distance_var * speed_avg)
     if len(speed) == 0:
