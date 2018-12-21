@@ -1,87 +1,24 @@
 import pygame
-
+import time as timer
 from src.user_interface import UI
-import sys
-sys.path.append("src")
-from src.transaction import Transaction
-import math
-from numpy import sign
+from src.fuzzy.speed import get_speed
 
-# ## INIT GAME
-# pygame.init()
-# clock = pygame.time.Clock()
-# screen = pygame.display.set_mode((1400, 700))
-
-# ## INIT OBJECT
-# transaction = Transaction()
-# text = Text()
-# background = Background('image/single_central.png', [0,0])
-# stone = Stone("image/stone.png", [0,0])
-# car = Car('image/car.png', [0, 0])
-# light = Light(['image/red.png', 'image/yellow.png', 'image/green.png'], [100,200])
-
-# ## BLIT
-# screen.blit(background.image, background.rect)
-# screen.blit(text.text, text.rect)
-# screen.blit(car.image, car.rect)
-# screen.blit(light.image, light.rect)
-# screen.blit(light.text, light.text_rect)
-
-# pygame.display.flip()
-
-
-# ## CONTROL DISPLAY
-# def update_display () :
-#     global screen, stone, car, background, text
-#     screen.blit(background.image, background.rect)
-#     screen.blit(text.text, text.rect) 
-#     screen.blit(stone.image, stone.rect)
-#     screen.blit(car.image, car.rect)
-#     screen.blit(light.image, light.rect)
-#     screen.blit(light.text, light.text_rect)
-#     pygame.display.update()
-#     return
-
-
-
-## GET START - STONE
-# def get_point (msg):
-#     global text
-#     while True:
-#         flag = False
-#         text.set_text(msg, [100, 100])
-#         ev = pygame.event.get()
-#         update_display()
-#         for event in ev:
-#         # handle MOUSEBUTTONUP
-#             if event.type == pygame.MOUSEBUTTONUP:
-#                 pos = pygame.mouse.get_pos()
-#                 print (pos)
-#                 flag = True
-#         if flag:
-#             return pos
-
-# start = get_point("Select begin position")
-# end = get_point("Select end position")
-# stone_pos = get_point("Select stone position")
-# text.set_text('', [100, 100])
-# stone.move_to(stone_pos)
 
 game = UI()
+game.setup_game()
 
-## GAME LOOP
-path, angles = transaction.find_path(start=start, end=end)
-# print (angles)
-couter = 1
+game.speed_setup(20, 0)
+counter = 0
 
-for i in range(len(path)) :
-    node = path[i]
-    angle = angles[i]
 
-    car.move_to(list(node))
-    car.rotate(angle)
+while True:
+    game.loop()
 
-    update_display()
-    pygame.time.delay(50)
-    light.time_pass(0.1)
-
+    # print (time, light_dis, stone_dis)
+    # print (get_speed(time, light_dis, stone_dis))
+    start = timer.time()    
+    time, light_dis, stone_dis = game.get_environment_info()
+    speed = get_speed(time, light_dis, stone_dis)
+    print (speed, light_dis)
+    calc_time = timer.time() - start
+    game.speed_setup(speed, calc_time)

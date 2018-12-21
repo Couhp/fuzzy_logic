@@ -6,9 +6,9 @@ class Light(pygame.sprite.Sprite):
         
         self.lights = list_image_file
         ### light :
-        # 0 ---> red
+        # 0 ---> green
         # 1 ---> yellow
-        # 2 ---> green
+        # 2 ---> red
 
         self.image = pygame.image.load(self.lights[0]).convert_alpha()
         self.status = 0
@@ -16,7 +16,6 @@ class Light(pygame.sprite.Sprite):
         self.time = 0
         self.round_time = 0
         self.status_list = [0 for i in range(10)] + [1 for i in range(5)] + [2 for i in range(10)]
-        print (self.status_list)
 
         pygame.sprite.Sprite.__init__(self) 
         pygame.font.init() # you have to call this at the start, 
@@ -24,7 +23,7 @@ class Light(pygame.sprite.Sprite):
         self.myfont = pygame.font.SysFont('Comic Sans MS', 50)
         self.text = self.myfont.render(str(self.get_time()), False, (100, 100, 0))
         self.text_rect = [self.rect[0] + 100, self.rect[1]]
-
+        self.position = self.rect.topleft
 
     def time_pass(self, unit):
         self.time += unit
@@ -32,7 +31,6 @@ class Light(pygame.sprite.Sprite):
             self.text = self.myfont.render(str(self.get_time()), False, (100, 100, 0))
             self.round_time = self.get_time()
         status = round(self.time) % 25
-        print (status)
         if self.status_list[status] != self.status:
             self.status = self.status_list[status]
             self.image = pygame.image.load(self.lights[self.status]).convert_alpha()
@@ -47,16 +45,15 @@ class Light(pygame.sprite.Sprite):
         else :
             return time
 
-    def life_status(self):
+
+    def light_status(self):
         time = round(self.time) % 25
-        return self.status[time]
+        return time
 
-
-    def set_distance(self, loc):
-        self.loc = loc
+    def get_rect(self):
+        return self.rect.topleft
     
     
-
 
 
     

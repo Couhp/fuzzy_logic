@@ -7,6 +7,7 @@ class Car(pygame.sprite.Sprite):
         self.image = self.original_image
         self.rect = self.image.get_rect(topleft=location)
         self.center = self.rect.center
+        self.loc = (0,0)
 
 
     def rotate(self, angle) :
@@ -17,6 +18,7 @@ class Car(pygame.sprite.Sprite):
     
     def move_to(self, location) :
         self.rect.topleft = [location[0] - self.center[0], location[1] - self.center[1]]
+        self.loc = location
         # self.rect.topleft = location
     
     def move(self, top, left) :
@@ -24,3 +26,4 @@ class Car(pygame.sprite.Sprite):
         top = top - self.center[0]
         left = left - self.center[1]
         self.rect.topleft = [self.rect.topleft[0] + top, self.rect.topleft[1] + left]
+        self.loc = (top, left)

@@ -7,8 +7,12 @@ class Stone(pygame.sprite.Sprite):
         self.image = self.original_image
         self.rect = self.image.get_rect(topleft=location)
         self.center = self.rect.center
+        self.position = (0,0)
+
 
     def move_to(self, location) :
         top = location[0] - self.center[0]
         left = location[1] - self.center[1]
         self.rect.topleft = [self.rect.topleft[0] + top, self.rect.topleft[1] + left]
+        self.position = location
+

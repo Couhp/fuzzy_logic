@@ -14,12 +14,26 @@ class Transaction :
         result = (1e6, ())
         for key in self.nodes :
             x1, y1 = node
+            y2, x2 = key
+            distance =  (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) 
+            if distance < result[0] :
+                result = (distance, (x2,y2))
+                # print (result)
+        return result[1]
+
+
+    def __find_nearest_node (self, node) :
+        result = (1e6, ())
+        for key in self.nodes :
+            x1, y1 = node
             x2, y2 = key
             distance =  (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) 
             if distance < result[0] :
                 result = (distance, (x2,y2))
                 # print (result)
         return result[1]
+
+
 
     def find_path (self, start='', end='') :
         ### find path for car by Astar Algorithm        
@@ -39,8 +53,8 @@ class Transaction :
         
         start = (start[1], start[0])
         end = (end[1], end[0])
-        start = self.find_nearest_node(start) #list(self.nodes.keys())[1920]
-        end   = self.find_nearest_node(end)    #list(self.nodes.keys())[490]
+        start = self.__find_nearest_node(start) #list(self.nodes.keys())[1920]
+        end   = self.__find_nearest_node(end)    #list(self.nodes.keys())[490]
         
         path = list(astar.find_path(start=start, goal=end, 
                     neighbors_fnct=neighbors,
@@ -70,14 +84,14 @@ class Transaction :
             x2, y2 = next_node
             ZERO = 0.01
             if abs(x1 - x2) < ZERO : 
-                if y2 > y1 : return -90
+                if y2 >= y1 : return -90
                 if y2 < y1 : return 90
             else :
                 angle = abs(math.degrees(math.atan( (y1-y2)/(x1-x2) )))
                 if      x1 < x2 and y1 >= y2 : return angle
                 elif    x1 < x2 and y1 <= y2 : return -angle
-                elif    x1 > x2 and y1 >= y2 : return 180-angle
-                elif    x1 > x2 and y1 <= y2 : return angle-180
+                elif    x1 >= x2 and y1 >= y2 : return 180-angle
+                elif    x1 >= x2 and y1 <= y2 : return angle-180
             print ("Oh shit @@@ $$$")
             return 0
         #### 
@@ -108,12 +122,15 @@ class Transaction :
 
     
     def distance (self, start, end):
+        start, end = tuple(start), tuple(end)
         start = self.path.index(start)
-        end = path.index(end)
+        if end not in self.path:
+            return -1
+        end = self.path.index(end)
         if start > end:
             return -1
         else:
-            return start - end
+            return end - start
     
     
 
