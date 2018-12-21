@@ -20,7 +20,6 @@ class Light(pygame.sprite.Sprite):
 
         self.myfont = pygame.font.SysFont('Comic Sans MS', 50)
         self.text = self.myfont.render(str(self.get_time()), False, (100, 100, 0))
-        self.text_rect = [self.rect[0] + 20, self.rect[1]]
         
       
         self.position = self.rect.topleft
@@ -56,5 +55,6 @@ class Light(pygame.sprite.Sprite):
 
     def move_to(self, location) :
         self.rect.topleft = [location[0] - self.center[0], location[1] - self.center[1]]
+        self.text_rect = [self.rect[0] + 20, self.rect[1]]
 
     
