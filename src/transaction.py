@@ -8,6 +8,7 @@ class Transaction :
     def __init__(self) :
         with open('image/map.dat', 'rb') as handle:
             self.nodes = pickle.load(handle)
+
        
         
     def find_nearest_node (self, node) :
@@ -132,7 +133,16 @@ class Transaction :
         else:
             return end - start
     
-    
+    def remove_stone (self, stone):
+        y1, x1 = stone
+        for key in self.nodes :
+            x2, y2 = key
+            distance =  math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2))
+            if distance < 30 :
+                self.nodes[key] = []
+                print (key)
+        return
+
 
 
 ## ==== TEST ====

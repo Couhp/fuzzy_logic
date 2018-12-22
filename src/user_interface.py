@@ -21,9 +21,10 @@ class UI:
         self.text = Text()
         self.background = Background('image/raw_map.png', [0,0])
         self.stone = Stone("image/stone.png", [0,0])
+        self.destination = Stone("image/loc.png", [0,0])
         self.car = Car('image/car.png', [0, 0])
         self.light = Light(['image/green.png', 'image/yellow.png', 'image/red.png'], [0,0])
-        self.light.move_to([292, 343])
+        self.light.move_to([800, 110])
         self.light.position =  self.transaction.find_nearest_node(self.light.get_rect())
         print ("light", self.light.position)
         self.stop_flag = False
@@ -44,6 +45,7 @@ class UI:
         self.screen.blit(self.car.image, self.car.rect)
         self.screen.blit(self.light.image, self.light.rect)
         self.screen.blit(self.stone.image, self.stone.rect)
+        self.screen.blit(self.destination.image, self.destination.rect)
         self.screen.blit(self.light.text, self.light.text_rect)
         pygame.display.update()
         return
@@ -67,9 +69,12 @@ class UI:
         self.start_point = self.transaction.find_nearest_node(get_point("Select begin position"))
         self.end_point = self.transaction.find_nearest_node(get_point("Select end position"))
         self.stone_pos = self.transaction.find_nearest_node(get_point("Select stone position"))
+        if self.stone_pos[1] > 325:
+            self.transaction.remove_stone(self.stone_pos) 
         print (self.start_point, self.end_point, self.stone_pos)
         self.text.set_text('', [100, 100])
         self.stone.move_to(self.stone_pos)
+        self.destination.move_to(self.end_point)
         self.path, self.angles = self.transaction.find_path(start=self.start_point, end=self.end_point)
 
         self.car.move_to(self.start_point)
@@ -81,7 +86,7 @@ class UI:
             return 
         else:
             speed = round(35.0 - speed)
-            time = speed / 1000
+            time = speed / 1000 + 0.01
             self.delay = speed
             self.time_light = time + calc_time
 
