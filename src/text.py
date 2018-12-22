@@ -10,5 +10,5 @@ class Text(pygame.sprite.Sprite):
         self.rect = [0, 0]
     
     def set_text (self, text, rect):
-        self.text = self.myfont.render(text, False, (100, 100, 0))
+        self.text = self.myfont.render(text, False, (0, 10, 0))
         self.rect = rect

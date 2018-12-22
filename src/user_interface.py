@@ -55,7 +55,7 @@ class UI:
         def get_point(msg):
             while True:
                 flag = False
-                self.text.set_text(msg, [10, 10])
+                self.text.set_text(msg, [200, 50])
                 ev = pygame.event.get()
                 self.update_display()
                 for event in ev:

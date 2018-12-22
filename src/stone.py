@@ -16,3 +16,4 @@ class Stone(pygame.sprite.Sprite):
         self.rect.topleft = [self.rect.topleft[0] + top, self.rect.topleft[1] + left]
         self.position = location
 
+

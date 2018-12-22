@@ -5,7 +5,7 @@ import math
 from matplotlib import pyplot as plt
 import pickle
 
-
+'''
 def detect (matrix, x, y) :
     # create matrix :
     # map = np.zeros((3,3))
@@ -52,7 +52,7 @@ for i in range(len(img)) :
                 img[i][j] = 255
 
 cv2.imwrite("single_central.png", img)
-
+'''
 
 
 # =====    Create matrix =============================
